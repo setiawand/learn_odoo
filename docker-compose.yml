@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  webapp:
+    container_name: webapp
+    image: odoo:16.0
+    depends_on:
+      - centraldb
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./data:/var/lib/odoo
+    environment:
+    - HOST=centraldb
+    - USER=odoo
+    - PASSWORD=myodoo
+    networks:
+      - central
+  
+  centraldb:
+    container_name: centraldb
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=myodoo
+      - POSTGRES_USER=odoo
+    networks:
+      - central
+
+  adminer:
+      image: adminer
+      restart: always
+      ports:
+        - 8080:8080
+      networks:
+        - central
+
+networks:
+  central:
