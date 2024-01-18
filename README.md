@@ -1,4 +1,4 @@
-# Learn Odoo
+# Starterkit to Learn Odoo
 
 This repository is odoo with docker compose enable. you can run using docker-compose up / docker compose up depend on your installed docker engine.
 
